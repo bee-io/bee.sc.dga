@@ -1047,81 +1047,81 @@ describe("CoinFlip", () => {
       expect(resultActive.arr[0].id).to.be.equal(4);
     });
   });
-  // describe("withdraw", async () => {
-  //   describe("Should success withdraw and emit event", async () => {
-  //     let tx: any;
-  //     let ethGameIndex = 0;
-  //     let token18GameIndex = 1;
-  //     let token9GameIndex = 2;
-  //     let ethBalance = constants.One.mul(1000);
-  //     let token18Balance = constants.One.mul(50);
-  //     let token9Balance = constants.OneGwei.mul(75);
+  describe("withdraw", async () => {
+    describe("Should success withdraw and emit event", async () => {
+      let tx: any;
+      let ethGameIndex = 0;
+      let token18GameIndex = 1;
+      let token9GameIndex = 2;
+      let ethBalance = constants.One.mul(1000);
+      let token18Balance = constants.One.mul(50);
+      let token9Balance = constants.OneGwei.mul(75);
 
-  //     before(async () => {
-  //       await snapshot.restore();
-  //       await token18.mint(playerA.address, token18Balance);
-  //       await token18.mint(playerB.address, token18Balance);
-  //       await token9.mint(playerA.address, token9Balance);
-  //       await token9.mint(playerB.address, token9Balance);
-  //       await token18
-  //         .connect(playerA)
-  //         .approve(coinFlip.address, token18Balance);
-  //       await token18
-  //         .connect(playerB)
-  //         .approve(coinFlip.address, token18Balance);
-  //       await token9.connect(playerA).approve(coinFlip.address, token9Balance);
-  //       await token9.connect(playerB).approve(coinFlip.address, token9Balance);
+      before(async () => {
+        await snapshot.restore();
+        await token18.mint(playerA.address, token18Balance);
+        await token18.mint(playerB.address, token18Balance);
+        await token9.mint(playerA.address, token9Balance);
+        await token9.mint(playerB.address, token9Balance);
+        await token18
+          .connect(playerA)
+          .approve(coinFlip.address, token18Balance);
+        await token18
+          .connect(playerB)
+          .approve(coinFlip.address, token18Balance);
+        await token9.connect(playerA).approve(coinFlip.address, token9Balance);
+        await token9.connect(playerB).approve(coinFlip.address, token9Balance);
 
-  //       await coinFlip
-  //         .connect(playerA)
-  //         .createGame(
-  //           constants.ZeroAddress,
-  //           constants.Zero,
-  //           CoinFlipUtils.BetType.EAGLE,
-  //           { value: ethBalance }
-  //         );
-  //       await coinFlip
-  //         .connect(playerA)
-  //         .createGame(
-  //           token18.address,
-  //           token18Balance,
-  //           CoinFlipUtils.BetType.EAGLE
-  //         );
-  //       await coinFlip
-  //         .connect(playerA)
-  //         .createGame(
-  //           token9.address,
-  //           token9Balance,
-  //           CoinFlipUtils.BetType.EAGLE
-  //         );
-  //       await coinFlip.connect(playerB).acceptGame(ethGameIndex);
-  //       await coinFlip.connect(playerB).acceptGame(token18GameIndex);
-  //       await coinFlip.connect(playerB).acceptGame(token9GameIndex);
-  //       await mockGamesManager.cancelGame(coinFlip.address, ethGameIndex);
-  //       await mockGamesManager.cancelGame(coinFlip.address, token18GameIndex);
-  //       await mockGamesManager.cancelGame(coinFlip.address, token9GameIndex);
-  //     });
+        await coinFlip
+          .connect(playerA)
+          .createGame(
+            constants.ZeroAddress,
+            constants.Zero,
+            CoinFlipUtils.BetType.EAGLE,
+            { value: ethBalance }
+          );
+        await coinFlip
+          .connect(playerA)
+          .createGame(
+            token18.address,
+            token18Balance,
+            CoinFlipUtils.BetType.EAGLE
+          );
+        await coinFlip
+          .connect(playerA)
+          .createGame(
+            token9.address,
+            token9Balance,
+            CoinFlipUtils.BetType.EAGLE
+          );
+        await coinFlip.connect(playerB).acceptGame(ethGameIndex, {value: ethBalance});
+        await coinFlip.connect(playerB).acceptGame(token18GameIndex);
+        await coinFlip.connect(playerB).acceptGame(token9GameIndex);
+        await mockGamesManager.cancelGame(coinFlip.address, ethGameIndex);
+        await mockGamesManager.cancelGame(coinFlip.address, token18GameIndex);
+        await mockGamesManager.cancelGame(coinFlip.address, token9GameIndex);
+      });
 
-  //     it("Should cocrect set rewards amount after cancel 3 games", async () => {
-  //       expect(
-  //         await coinFlip.rewards(playerA.address, constants.ZeroAddress)
-  //       ).to.be.equal(ethBalance);
-  //       expect(
-  //         await coinFlip.rewards(playerB.address, constants.ZeroAddress)
-  //       ).to.be.equal(ethBalance);
-  //       expect(
-  //         await coinFlip.rewards(playerA.address, token18.address)
-  //       ).to.be.equal(token18Balance);
-  //       expect(
-  //         await coinFlip.rewards(playerB.address, token18.address)
-  //       ).to.be.equal(token18Balance);
-  //       expect(
-  //         await coinFlip.rewards(playerA.address, token9.address)
-  //       ).to.be.equal(token9Balance);
-  //       expect(
-  //         await coinFlip.rewards(playerB.address, token9.address)
-  //       ).to.be.equal(token9Balance);
-  //     });
-  //   });
-  // });
+      it("Should cocrect set rewards amount after cancel 3 games", async () => {
+        expect(
+          await coinFlip.rewards(playerA.address, constants.ZeroAddress)
+        ).to.be.equal(ethBalance);
+        expect(
+          await coinFlip.rewards(playerB.address, constants.ZeroAddress)
+        ).to.be.equal(ethBalance);
+        expect(
+          await coinFlip.rewards(playerA.address, token18.address)
+        ).to.be.equal(token18Balance);
+        expect(
+          await coinFlip.rewards(playerB.address, token18.address)
+        ).to.be.equal(token18Balance);
+        expect(
+          await coinFlip.rewards(playerA.address, token9.address)
+        ).to.be.equal(token9Balance);
+        expect(
+          await coinFlip.rewards(playerB.address, token9.address)
+        ).to.be.equal(token9Balance);
+      });
+    });
+  });
 });
